@@ -115,6 +115,15 @@ class TestGetColumnIndex(unittest.TestCase):
 
         self.assertIsNone(result)
 
+    def test_get_column_index_empty_header(self):
+        header = []
+
+        result = fire_gdp.get_column_index(
+            header, "Forest fires"
+        )
+
+        self.assertIsNone(result)
+
 
 if __name__ == '__main__':
     unittest.main()
