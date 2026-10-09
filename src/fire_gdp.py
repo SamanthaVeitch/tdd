@@ -45,14 +45,17 @@ def get_fire_gdp_year_data(co2_file, gdp_file, country):
 
     fires_index = get_column_index(co2_header, "Forest fires")
 
-    co2_row = co2_data[1]
     gdp_row = gdp_data[1]
+    results = []
 
-    year = co2_row[1]
-    gdp_index = get_column_index(gdp_header, year)
+    for co2_row in co2_data[1:]:
+        year = co2_row[1]
+        gdp_index = get_column_index(gdp_header, year)
 
-    return [[
-        int(year),
-        float(co2_row[fires_index]),
-        float(gdp_row[gdp_index])
-    ]]
+        results.append([
+            int(year),
+            float(co2_row[fires_index]),
+            float(gdp_row[gdp_index])
+        ])
+
+    return results
