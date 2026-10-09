@@ -72,6 +72,29 @@ class TestGetData(unittest.TestCase):
 
         self.assertEqual(result, [header])
 
+    def test_get_data_query_with_header(self):
+        file_name = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+
+        with open(file_name, "r", newline="") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            expected = [header]
+
+            for row in reader:
+                if row[0] == "Finland":
+                    expected.append(row)
+
+        result = fire_gdp.get_data(
+            file_name,
+            query_column=0,
+            query_value="Finland",
+            return_header=True
+        )
+
+        self.assertEqual(result, expected)
+
 
 class TestGetColumnIndex(unittest.TestCase):
 
