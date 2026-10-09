@@ -156,7 +156,7 @@ class TestGetFireGDPYearData(unittest.TestCase):
             co2_file, gdp_file, "Finland"
         )
 
-        self.assertEqual(len(result), 31)
+        self.assertEqual(len(result), 30)
 
         self.assertEqual(result[0], [1990, 0.6875, 90959.0])
         self.assertEqual(result[1], [1991, 0.6875, 86899.0])
@@ -177,6 +177,23 @@ class TestGetFireGDPYearData(unittest.TestCase):
         self.assertEqual(len(result), 14)
         self.assertEqual(result[0], [2007, 415.5537, 15974090.0])
         self.assertEqual(result[-1], [2020, 586.4382, 49435649.38])
+
+    def test_get_fire_gdp_missing_fires(self):
+        co2_file = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+        gdp_file = os.path.join(
+            "test", "data", "test_IMF_GDP.csv"
+        )
+
+        result = fire_gdp.get_fire_gdp_year_data(
+            co2_file, gdp_file, "Finland"
+        )
+
+        years = [row[0] for row in result]
+
+        self.assertNotIn(2004, years)
+        self.assertEqual(len(result), 30)
 
 
 if __name__ == '__main__':
