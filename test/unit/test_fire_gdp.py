@@ -55,6 +55,23 @@ class TestGetData(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
+    def test_get_data_query_no_match_with_header(self):
+        file_name = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+
+        with open(file_name, "r", newline="") as file:
+            header = next(csv.reader(file))
+
+        result = fire_gdp.get_data(
+            file_name,
+            query_column=0,
+            query_value="NonexistentCountry",
+            return_header=True
+        )
+
+        self.assertEqual(result, [header])
+
 
 class TestGetColumnIndex(unittest.TestCase):
 
