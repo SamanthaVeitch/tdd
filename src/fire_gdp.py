@@ -30,4 +30,29 @@ def get_column_index(header, column_name):
 
 
 def get_fire_gdp_year_data(co2_file, gdp_file, country):
-    pass
+    co2_data = get_data(
+        co2_file, query_column=0,
+        query_value=country, return_header=True
+    )
+
+    gdp_data = get_data(
+        gdp_file, query_column=0,
+        query_value=country, return_header=True
+    )
+
+    co2_header = co2_data[0]
+    gdp_header = gdp_data[0]
+
+    fires_index = get_column_index(co2_header, "Forest fires")
+
+    co2_row = co2_data[1]
+    gdp_row = gdp_data[1]
+
+    year = co2_row[1]
+    gdp_index = get_column_index(gdp_header, year)
+
+    return [[
+        int(year),
+        float(co2_row[fires_index]),
+        float(gdp_row[gdp_index])
+    ]]

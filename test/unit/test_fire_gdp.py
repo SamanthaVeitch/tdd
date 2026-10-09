@@ -125,5 +125,25 @@ class TestGetColumnIndex(unittest.TestCase):
         self.assertIsNone(result)
 
 
+class TestGetFireGDPYearData(unittest.TestCase):
+
+    def test_get_fire_gdp_finland(self):
+        co2_file = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+        gdp_file = os.path.join(
+            "test", "data", "test_IMF_GDP.csv"
+        )
+
+        result = fire_gdp.get_fire_gdp_year_data(
+            co2_file, gdp_file, "Finland"
+        )
+
+        self.assertEqual(result[0][0], 1990)
+        self.assertIsInstance(result[0][0], int)
+        self.assertIsInstance(result[0][1], float)
+        self.assertIsInstance(result[0][2], float)
+
+
 if __name__ == '__main__':
     unittest.main()
