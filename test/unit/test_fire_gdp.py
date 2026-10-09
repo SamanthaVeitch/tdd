@@ -212,6 +212,20 @@ class TestGetFireGDPYearData(unittest.TestCase):
         self.assertNotIn(2021, years)
         self.assertEqual(len(result), 29)
 
+    def test_get_fire_gdp_no_country(self):
+        co2_file = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+        gdp_file = os.path.join(
+            "test", "data", "test_IMF_GDP.csv"
+        )
+
+        result = fire_gdp.get_fire_gdp_year_data(
+            co2_file, gdp_file, "NonexistentCountry"
+        )
+
+        self.assertEqual(result, [])
+
 
 if __name__ == '__main__':
     unittest.main()

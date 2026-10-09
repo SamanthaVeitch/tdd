@@ -39,7 +39,8 @@ def get_fire_gdp_year_data(co2_file, gdp_file, country):
         gdp_file, query_column=0,
         query_value=country, return_header=True
     )
-
+    if len(co2_data) < 2 or len(gdp_data) < 2:
+        return []
     co2_header = co2_data[0]
     gdp_header = gdp_data[0]
 
