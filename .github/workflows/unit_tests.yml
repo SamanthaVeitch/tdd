@@ -27,4 +27,4 @@ jobs:
 
       - name: Run unit tests
         shell: bash -el {0}
-        run: python -m unittest test_fire_gdp.py
+        run: PYTHONPATH=src python test/unit/test_fire_gdp.py

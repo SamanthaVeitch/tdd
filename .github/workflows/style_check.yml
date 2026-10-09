@@ -28,4 +28,4 @@ jobs:
 
       - name: Run pycodestyle
         shell: bash -el {0}
-        run: pycodestyle .
+        run: pycodestyle src/ test/unit/
