@@ -2,7 +2,8 @@ import csv
 import os
 import sys
 import unittest
-import fire_gdp
+
+from src import fire_gdp
 
 
 class TestGetData(unittest.TestCase):
@@ -18,6 +19,24 @@ class TestGetData(unittest.TestCase):
             expected = list(reader)
 
         result = fire_gdp.get_data(file_name)
+
+        self.assertEqual(result, expected)
+
+    def test_get_data_query(self):
+        file_name = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+
+        with open(file_name, "r", newline="") as file:
+            reader = csv.reader(file)
+            next(reader)
+            expected = [
+                row for row in reader if row[0] == "Finland"
+            ]
+
+        result = fire_gdp.get_data(
+            file_name, query_column=0, query_value="Finland"
+        )
 
         self.assertEqual(result, expected)
 
