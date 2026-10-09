@@ -162,6 +162,22 @@ class TestGetFireGDPYearData(unittest.TestCase):
         self.assertEqual(result[1], [1991, 0.6875, 86899.0])
         self.assertEqual(result[2], [1992, 0.6875, 84782.0])
 
+    def test_get_fire_gdp_missing_gdp(self):
+        co2_file = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+        gdp_file = os.path.join(
+            "test", "data", "test_IMF_GDP.csv"
+        )
+
+        result = fire_gdp.get_fire_gdp_year_data(
+            co2_file, gdp_file, "Madagascar"
+        )
+
+        self.assertEqual(len(result), 14)
+        self.assertEqual(result[0], [2007, 415.5537, 15974090.0])
+        self.assertEqual(result[-1], [2020, 586.4382, 49435649.38])
+
 
 if __name__ == '__main__':
     unittest.main()
