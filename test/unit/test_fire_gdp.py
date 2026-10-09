@@ -106,6 +106,15 @@ class TestGetColumnIndex(unittest.TestCase):
 
         self.assertEqual(result, 2)
 
+    def test_get_column_index_missing(self):
+        header = ["Area", "Year", "Forest fires"]
+
+        result = fire_gdp.get_column_index(
+            header, "GDP"
+        )
+
+        self.assertIsNone(result)
+
 
 if __name__ == '__main__':
     unittest.main()

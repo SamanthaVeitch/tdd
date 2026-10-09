@@ -23,7 +23,10 @@ def get_data(file_name,
 
 
 def get_column_index(header, column_name):
-    return header.index(column_name)
+    try:
+        return header.index(column_name)
+    except ValueError:
+        return None
 
 
 def get_fire_gdp_year_data(co2_file, gdp_file, country):
