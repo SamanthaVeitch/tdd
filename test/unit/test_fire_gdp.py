@@ -40,6 +40,21 @@ class TestGetData(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
+    def test_get_data_return_header(self):
+        file_name = os.path.join(
+            "test", "data", "test_Agrofood_co2_emission.csv"
+        )
+
+        with open(file_name, "r", newline="") as file:
+            reader = csv.reader(file)
+            expected = list(reader)
+
+        result = fire_gdp.get_data(
+            file_name, return_header=True
+        )
+
+        self.assertEqual(result, expected)
+
 
 class TestGetColumnIndex(unittest.TestCase):
 

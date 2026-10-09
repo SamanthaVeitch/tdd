@@ -7,7 +7,7 @@ def get_data(file_name,
              return_header=False):
     with open(file_name, "r", newline="") as file:
         reader = csv.reader(file)
-        next(reader)
+        header = next(reader)
         rows = list(reader)
 
     if query_column is not None and query_value is not None:
@@ -15,6 +15,9 @@ def get_data(file_name,
             row for row in rows
             if row[query_column] == query_value
         ]
+
+    if return_header:
+        rows.insert(0, header)
 
     return rows
 
