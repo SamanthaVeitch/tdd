@@ -97,9 +97,14 @@ class TestGetData(unittest.TestCase):
 
 
 class TestGetColumnIndex(unittest.TestCase):
+    def test_get_column_index_present(self):
+        header = ["Area", "Year", "Forest fires"]
 
-    def test_name_present(self):
-        pass
+        result = fire_gdp.get_column_index(
+            header, "Forest fires"
+        )
+
+        self.assertEqual(result, 2)
 
 
 if __name__ == '__main__':
