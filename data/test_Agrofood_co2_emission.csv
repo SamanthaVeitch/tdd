@@ -1,0 +1,97 @@
+Area,Year,Savanna fires,Forest fires
+Finland,1990,0.767,0.6875
+Finland,1991,0.767,0.6875
+Finland,1992,0.767,0.6875
+Finland,1993,0.767,0.6875
+Finland,1994,0.767,0.6875
+Finland,1995,0.767,0.6875
+Finland,1996,0.4471,5.7961
+Finland,1997,0.2479,1.9068
+Finland,1998,0.2313,0.9576
+Finland,1999,0.2499,0.9138
+Finland,2000,0.2875,1.2863
+Finland,2001,0.2625,0.4252
+Finland,2002,0.0918,0
+Finland,2003,2.669,0.1063
+Finland,2004,0,0
+Finland,2005,0.0511,0
+Finland,2006,2.4119,1.7008
+Finland,2007,0.5601,0.2126
+Finland,2008,1.9939,0.7438
+Finland,2009,1.2654,0.1063
+Finland,2010,0.3097,0.9563
+Finland,2011,1.2038,1.063
+Finland,2012,0,0
+Finland,2013,0.5305,0.3188
+Finland,2014,0.1492,0
+Finland,2015,0.2645,0.1063
+Finland,2016,0.9893,0.2125
+Finland,2017,0,0
+Finland,2018,0.8443,0.2126
+Finland,2019,1.2148,0.1063
+Finland,2020,0,0
+Madagascar,1990,2615.713,659.309
+Madagascar,1991,2615.713,659.309
+Madagascar,1992,2615.713,659.309
+Madagascar,1993,2615.713,659.309
+Madagascar,1994,2615.713,659.309
+Madagascar,1995,2615.713,659.309
+Madagascar,1996,2714.6888,1268.0817
+Madagascar,1997,2272.5475,721.8431
+Madagascar,1998,2940.4607,986.745
+Madagascar,1999,2507.9452,952.2254
+Madagascar,2000,2021.8614,184.0209
+Madagascar,2001,2865.996,328.1683
+Madagascar,2002,2283.8354,220.9995
+Madagascar,2003,3947.5297,273.4926
+Madagascar,2004,2321.7313,378.3227
+Madagascar,2005,3878.9638,899.3221
+Madagascar,2006,2611.2459,590.4869
+Madagascar,2007,3816.168,415.5537
+Madagascar,2008,2368.862,205.3218
+Madagascar,2009,2892.8675,572.1073
+Madagascar,2010,2646.7357,1053.8727
+Madagascar,2011,2613.953,1132.203
+Madagascar,2012,2746.1443,483.4992
+Madagascar,2013,2565.3605,790.7461
+Madagascar,2014,2120.6058,359.1325
+Madagascar,2015,2189.6472,1174.6872
+Madagascar,2016,3126.7772,812.2859
+Madagascar,2017,2006.5027,919.6777
+Madagascar,2018,2029.7394,668.3941
+Madagascar,2019,2233.4069,556.4085
+Madagascar,2020,2360.2698,586.4382
+United States of America,1990,1391.1481,1999.5617
+United States of America,1991,1391.1481,1999.5617
+United States of America,1992,1391.1481,1999.5617
+United States of America,1993,1391.1481,1999.5617
+United States of America,1994,1391.1481,1999.5617
+United States of America,1995,1391.1481,1999.5617
+United States of America,1996,1694.8841,3286.2536
+United States of America,1997,757.1947,1553.0516
+United States of America,1998,1225.4008,3099.349
+United States of America,1999,1288.5873,3578.5759
+United States of America,2000,1385.9744,3687.677
+United States of America,2001,497.1015,534.9642
+United States of America,2002,1111.7842,1475.6013
+United States of America,2003,1188.3672,1224.2156
+United States of America,2004,1672.1608,1201.6707
+United States of America,2005,2406.4668,915.3977
+United States of America,2006,1749.7266,1086.7729
+United States of America,2007,1970.7496,1558.7559
+United States of America,2008,1160.9667,2068.4252
+United States of America,2009,1332.1128,1093.5759
+United States of America,2010,741.2273,912.6399
+United States of America,2011,2200.3468,1330.2757
+United States of America,2012,1616.5661,1173.5953
+United States of America,2013,813.4448,1284.547
+United States of America,2014,946.473,1336.9865
+United States of America,2015,1521.927,2235.1868
+United States of America,2016,1214.1887,1438.7519
+United States of America,2017,1749.8832,2664.9144
+United States of America,2018,1540.0409,2457.9409
+United States of America,2019,988.5763,1190.9796
+United States of America,2020,2031.3179,5405.3003
+Malformed,2026, ,404
+Malformed,2027,3,404
+Malformed,2028,404, 
