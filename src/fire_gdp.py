@@ -9,6 +9,9 @@ def get_data(file_name,
              query_column=None,
              query_value=None,
              return_header=False):
+    """
+    Read a CSV file and return its contents as a list of rows.
+    """
     with open(file_name, "r", newline="") as file:
         reader = csv.reader(file)
         header = next(reader, None)
@@ -29,6 +32,9 @@ def get_data(file_name,
 
 
 def get_column_index(header, column_name):
+    """
+    Get the index of a column in a CSV with header.
+    """
     try:
         return header.index(column_name)
     except ValueError:
