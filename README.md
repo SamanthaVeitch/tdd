@@ -32,19 +32,19 @@ The United States shows little relationship between GDP and forest fire emission
 
 ![Canada](plots/canada.png)
 
-Canada shows generally lower forest fire emissions at higher GDP values, although several large spikes remain. This provides some support for the hypothesis.
+Canada shows generally lower forest fire emissions at higher GDP values, although several large spikes remain.
 
 ### France
 
 ![France](plots/france.png)
 
-France shows considerable variation in forest fire emissions across GDP values, with no clear downward trend. This does not support the hypothesis.
+France shows considerable variation in forest fire emissions across GDP values.
 
 ### Germany
 
 ![Germany](plots/germany.png)
 
-Germany shows mostly low forest fire emissions with occasional large spikes across GDP values. There is no clear relationship, providing little support for the hypothesis.
+Germany shows mostly low forest fire emissions with occasional large spikes across GDP values. There is no clear relationship.
 
 ### Conclusion
 
