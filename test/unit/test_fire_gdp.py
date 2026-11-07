@@ -1,7 +1,9 @@
 import csv
 import os
+import tempfile
 import sys
 import unittest
+import warnings
 
 from src import fire_gdp
 
@@ -225,6 +227,81 @@ class TestGetFireGDPYearData(unittest.TestCase):
         )
 
         self.assertEqual(result, [])
+
+    def test_missing_co2_required_column(self):
+        with tempfile.TemporaryDirectory() as directory:
+            co2_file = os.path.join(directory, "co2.csv")
+
+            with open(co2_file, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Area", "Year"])
+                writer.writerow(["Finland", "1990"])
+
+            gdp_file = os.path.join(
+                "test", "data", "test_IMF_GDP.csv"
+            )
+
+            with self.assertRaisesRegex(
+                ValueError, "Forest fires"
+            ):
+                fire_gdp.get_fire_gdp_year_data(
+                    co2_file, gdp_file, "Finland"
+                )
+
+    def test_missing_gdp_required_column(self):
+        with tempfile.TemporaryDirectory() as directory:
+            gdp_file = os.path.join(directory, "gdp.csv")
+
+            with open(gdp_file, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Area", "1990"])
+                writer.writerow(["Finland", "90959"])
+
+            co2_file = os.path.join(
+                "test", "data", "test_Agrofood_co2_emission.csv"
+            )
+
+            with self.assertRaisesRegex(ValueError, "Country"):
+                fire_gdp.get_fire_gdp_year_data(
+                    co2_file, gdp_file, "Finland"
+                )
+
+    def test_missing_values_warn_and_skip(self):
+        with tempfile.TemporaryDirectory() as directory:
+            co2_file = os.path.join(directory, "co2.csv")
+            gdp_file = os.path.join(directory, "gdp.csv")
+
+            with open(co2_file, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Area", "Year", "Forest fires"])
+                writer.writerow(["Finland", "1990", ""])
+                writer.writerow(["Finland", "1991", "0.5"])
+                writer.writerow(["Finland", "1992", "0.7"])
+
+            with open(gdp_file, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Country", "1990", "1991", "1992"])
+                writer.writerow(["Finland", "100", "", "300"])
+
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always", UserWarning)
+
+                result = fire_gdp.get_fire_gdp_year_data(
+                    co2_file, gdp_file, "Finland"
+                )
+
+            self.assertEqual(result, [[1992, 0.7, 300.0]])
+            self.assertEqual(len(caught), 2)
+
+            messages = [str(item.message) for item in caught]
+
+            self.assertIn("Forest fires", messages[0])
+            self.assertIn("1990", messages[0])
+            self.assertIn(co2_file, messages[0])
+
+            self.assertIn("GDP", messages[1])
+            self.assertIn("1991", messages[1])
+            self.assertIn(gdp_file, messages[1])
 
 
 if __name__ == '__main__':
