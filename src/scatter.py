@@ -137,8 +137,8 @@ def main():
             args.output_file,
             args.gdp_unit,
         )
-    except OSError as error:
-        parser.exit(1, f"File error: {error}\n")
+    except (OSError, ValueError) as error:
+        parser.exit(1, f"Error: {error}\n")
 
     if not success:
         parser.exit(
