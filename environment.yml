@@ -1,9 +1,11 @@
 name: tdd
 channels:
   - conda-forge
+  - bioconda
 dependencies:
   - python=3.11
   - numpy
   - matplotlib
   - pycodestyle
-  
+  - snakemake=9.27.1
+  - graphviz
