@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 # Use a non-interactive backend to save plots without opening a window.
 matplotlib.use("Agg")
 
-
 # Input GDP values are in millions of local currency.
 GDP_DIVISORS = {
     "millions": 1,
@@ -36,13 +35,13 @@ def make_scatter(
         Path where the scatter plot will be saved. The parent
         directory must already exist.
     gdp_unit : str, optional
-        Unit used to display GDP. Must be "millions", "billions",
-        or "trillions". Defaults to "millions".
+        GDP display unit: "millions", "billions", or "trillions".
+        Defaults to "millions".
 
     Returns
     -------
     bool
-        True if the plot was created successfully.
+        True if the plot was saved successfully.
         False if no matching data was found.
     """
     data = fire_gdp.get_fire_gdp_year_data(
@@ -50,29 +49,30 @@ def make_scatter(
     )
 
     if not data:
-        print(f"No matching data found for {country}.")
         return False
 
     divisor = GDP_DIVISORS[gdp_unit]
-
     gdp = [row[2] / divisor for row in data]
     fires = [row[1] for row in data]
 
     fig, ax = plt.subplots()
 
-    ax.scatter(gdp, fires)
+    try:
+        ax.scatter(gdp, fires)
 
-    ax.set_xlabel(f"GDP ({gdp_unit} of local currency)")
-    ax.set_ylabel("Forest fire emissions")
-    ax.set_title(f"Forest Fire Emissions vs GDP: {country}")
+        ax.set_xlabel(f"GDP ({gdp_unit} of local currency)")
+        ax.set_ylabel("Forest fire emissions")
+        ax.set_title(f"Forest Fire Emissions vs GDP: {country}")
 
-    ax.ticklabel_format(style="plain", axis="y")
+        ax.ticklabel_format(style="plain", axis="y")
 
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
 
-    fig.savefig(output_file, bbox_inches="tight")
-    plt.close(fig)
+        fig.savefig(output_file, bbox_inches="tight")
+    finally:
+        # Release the figure even if saving raises an exception.
+        plt.close(fig)
 
     return True
 
@@ -81,29 +81,45 @@ def main():
     """
     Parse command-line arguments and generate a scatter plot.
 
-    The command-line interface requires paths to the emissions
-    and GDP datasets, a country name, and an output file path.
-    GDP display units are optional and default to millions.
+    Required arguments identify the emissions dataset, GDP
+    dataset, country, and output file. The GDP display unit
+    defaults to millions.
 
     Returns
     -------
     None
-        The function does not return a value.
+        The function does not return a value on success.
 
     Raises
     ------
     SystemExit
-        If required arguments are missing or plot creation fails.
+        If arguments are invalid, file operations fail, or
+        no matching data is found.
     """
     parser = argparse.ArgumentParser(
         description="Plot forest fire emissions against GDP."
     )
 
-    parser.add_argument("--co2_file", required=True)
-    parser.add_argument("--gdp_file", required=True)
-    parser.add_argument("--country", required=True)
-    parser.add_argument("--output_file", required=True)
-
+    parser.add_argument(
+        "--co2_file",
+        required=True,
+        help="Path to the CSV file containing forest fire emissions.",
+    )
+    parser.add_argument(
+        "--gdp_file",
+        required=True,
+        help="Path to the CSV file containing GDP data.",
+    )
+    parser.add_argument(
+        "--country",
+        required=True,
+        help="Country name exactly as it appears in both CSV files.",
+    )
+    parser.add_argument(
+        "--output_file",
+        required=True,
+        help="Output image path; the parent directory must exist.",
+    )
     parser.add_argument(
         "--gdp_unit",
         choices=GDP_DIVISORS.keys(),
@@ -113,16 +129,23 @@ def main():
 
     args = parser.parse_args()
 
-    success = make_scatter(
-        args.co2_file,
-        args.gdp_file,
-        args.country,
-        args.output_file,
-        args.gdp_unit,
-    )
+    try:
+        success = make_scatter(
+            args.co2_file,
+            args.gdp_file,
+            args.country,
+            args.output_file,
+            args.gdp_unit,
+        )
+    except OSError as error:
+        parser.exit(1, f"File error: {error}\n")
 
     if not success:
-        parser.exit(1, "Plot was not created.\n")
+        parser.exit(
+            1,
+            f"No matching data found for {args.country}. "
+            "Plot was not created.\n",
+        )
 
 
 if __name__ == "__main__":
